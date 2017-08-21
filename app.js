@@ -26,21 +26,6 @@ db.on('error', function(error) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//READ
-app.get("/users", (request, response) => {
-	user.find(function(error, user) {
- 		if(error){
- 			response.send({
- 				success : false,
- 				error : error
- 			});
- 			return console.error(error);
- 		}
- 		console.log(user);
-		response.send(user);
- 	});
-});
-
 //CREATE
 app.post('/users', (request, response) => {
 	db.collection('users').save(request.body, (error, result) => {
@@ -57,6 +42,21 @@ app.post('/users', (request, response) => {
 			error : false
 		});
 	});
+});
+
+//READ
+app.get("/users", (request, response) => {
+	user.find(function(error, user) {
+ 		if(error){
+ 			response.send({
+ 				success : false,
+ 				error : error
+ 			});
+ 			return console.error(error);
+ 		}
+ 		console.log(user);
+		response.send(user);
+ 	});
 });
 
 //UPDATE
